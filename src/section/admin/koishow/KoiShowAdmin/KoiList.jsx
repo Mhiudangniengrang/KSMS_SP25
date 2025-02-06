@@ -25,7 +25,7 @@ function KoiList({ categoryId }) {
       name: "Nguyen Van A",
       email: "nguyenvana@example.com",
       koiName: "Koi Kohaku 1",
-      size: "50 cm",
+      size: "20 cm",
       variety: "Kohaku",
       description: "A beautiful Kohaku koi with perfect patterns.",
       image:
@@ -284,9 +284,9 @@ function KoiList({ categoryId }) {
           allowClear
           className="w-full md:w-1/3"
         >
-          <Option value="1">Large Koi</Option>
-          <Option value="2">Medium Koi</Option>
-          <Option value="3">Small Koi</Option>
+          <Option value="1">Mini Kohaku</Option>
+          <Option value="2">Standard Showa</Option>
+          <Option value="3">Premium Taisho Sanke</Option>
         </Select>
       </div>
 
