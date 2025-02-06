@@ -4,9 +4,9 @@ const { Option } = Select;
 
 function StepOne() {
   return (
-    <form>
+    <div className="space-y-4">
       {/* Show Information */}
-      <div className="mb-4">
+      <div className="mb-4 ">
         <h2 className="text-2xl font-semibold mb-6">
           Step 1: Show Information & Details
         </h2>
@@ -186,7 +186,7 @@ function StepOne() {
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 }
 

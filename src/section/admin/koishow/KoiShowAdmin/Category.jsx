@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import { Table, Input, Button, Tag, Select, Typography } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  Table,
+  Input,
+  Button,
+  Tag,
+  Select,
+  Typography,
+  Form,
+  Modal,
+} from "antd";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -8,6 +17,9 @@ const { Option } = Select;
 function Category() {
   const [searchText, setSearchText] = useState("");
   const [filterVariety, setFilterVariety] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+
   const [data, setData] = useState([
     {
       key: "1",
@@ -41,6 +53,26 @@ function Category() {
 
   const handleFilterVariety = (value) => {
     setFilterVariety(value);
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    form.resetFields();
+    setIsModalVisible(false);
+  };
+
+  const handleCreate = (values) => {
+    const newCategory = {
+      key: String(data.length + 1),
+      ...values,
+      participatingKoi: 0,
+    };
+    setData([...data, newCategory]);
+    setIsModalVisible(false);
+    form.resetFields();
   };
 
   const filteredData = data.filter((item) => {
@@ -125,9 +157,8 @@ function Category() {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      {/* <Typography.Title level={3}>Categories</Typography.Title> */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-        <div className="mb-2 md:mb-0">
+        <div className="flex items-center space-x-2 mb-2 md:mb-0">
           <Search
             placeholder="Search categories..."
             onSearch={handleSearch}
@@ -147,15 +178,87 @@ function Category() {
             <Option value="Sanke">Sanke</Option>
           </Select>
         </div>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={showModal}
+          className="bg-blue-500 hover:bg-blue-600"
+        >
+          Create
+        </Button>
       </div>
+
       <Table
         columns={columns}
         dataSource={filteredData}
         pagination={{ pageSize: 5 }}
         className="bg-white rounded-lg"
       />
+
+      <Modal
+        title="Create New Category"
+        open={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form form={form} layout="vertical" onFinish={handleCreate}>
+          <Form.Item
+            name="categoryName"
+            label="Category Name"
+            rules={[{ required: true, message: "Please input category name!" }]}
+          >
+            <Input placeholder="Enter category name" />
+          </Form.Item>
+
+          <Form.Item
+            name="sizeCategory"
+            label="Size Category"
+            rules={[
+              { required: true, message: "Please select size category!" },
+            ]}
+          >
+            <Select placeholder="Select size category">
+              <Option value="Under 20 cm">Under 20 cm</Option>
+              <Option value="20-30 cm">20-30 cm</Option>
+              <Option value="30-50 cm">30-50 cm</Option>
+              <Option value="Over 50 cm">Over 50 cm</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="variety"
+            label="Variety"
+            rules={[{ required: true, message: "Please select variety!" }]}
+          >
+            <Select placeholder="Select variety">
+              <Option value="Kohaku">Kohaku</Option>
+              <Option value="Showa">Showa</Option>
+              <Option value="Sanke">Sanke</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="status"
+            label="Status"
+            rules={[{ required: true, message: "Please select status!" }]}
+          >
+            <Select placeholder="Select status">
+              <Option value="Active">Active</Option>
+              <Option value="Inactive">Inactive</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item className="flex justify-end mb-0">
+            <Button onClick={handleCancel} className="mr-2">
+              Cancel
+            </Button>
+            <Button type="primary" htmlType="submit" className="bg-blue-500">
+              Create
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 }
-
 export default Category;

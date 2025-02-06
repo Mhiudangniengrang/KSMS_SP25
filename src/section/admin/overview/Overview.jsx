@@ -1,5 +1,5 @@
-import React from "react";
-import { Card } from "antd";
+import React, { useState } from "react";
+import { Card, Row, Col, Select } from "antd";
 import {
   BarChart,
   Bar,
@@ -12,56 +12,103 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import {
+  TrophyOutlined,
+  UserOutlined,
+  GoldOutlined,
+  RollbackOutlined,
+  LineChartOutlined,
+  DollarOutlined,
+} from "@ant-design/icons";
+
+const { Option } = Select;
 
 const Overview = () => {
-  // Data for charts
-  const revenueData = [
-    {
-      name: "Grand Koi Exhibition",
+  const [selectedShow, setSelectedShow] = useState("all");
+
+  const showData = {
+    "Grand Koi Exhibition": {
+      competitions: 2,
+      users: 8,
+      koiFish: 35,
       revenue: 4000000,
       refund: 500000,
       profit: 3500000,
     },
-    {
-      name: "Premium Koi Show",
+    "Premium Koi Show": {
+      competitions: 1,
+      users: 10,
+      koiFish: 40,
       revenue: 5000000,
       refund: 300000,
       profit: 4700000,
     },
-    {
-      name: "Rare Koi Search",
+    "Rare Koi Search": {
+      competitions: 2,
+      users: 7,
+      koiFish: 30,
       revenue: 4500000,
       refund: 400000,
       profit: 4100000,
     },
-    {
-      name: "Spring Koi Festival",
+    "Spring Koi Festival": {
+      competitions: 1,
+      users: 5,
+      koiFish: 25,
       revenue: 3000000,
       refund: 200000,
       profit: 2800000,
     },
-    {
-      name: "Koi Paradise Show",
+    "Koi Paradise Show": {
+      competitions: 2,
+      users: 8,
+      koiFish: 36,
       revenue: 3500000,
       refund: 250000,
       profit: 3250000,
     },
-    {
-      name: "Tropical Koi Masters",
+    "Tropical Koi Masters": {
+      competitions: 2,
+      users: 5,
+      koiFish: 25,
       revenue: 2000000,
       refund: 150000,
       profit: 1850000,
     },
-  ];
+  };
 
-  const profitDistributionData = [
-    { name: "Grand Koi Exhibition", value: 12.8 },
-    { name: "Premium Koi Show", value: 21.1 },
-    { name: "Rare Koi Search", value: 24.8 },
-    { name: "Spring Koi Festival", value: 11.5 },
-    { name: "Koi Paradise Show", value: 15.5 },
-    { name: "Tropical Koi Masters", value: 10.1 },
-  ];
+  const revenueData = Object.entries(showData).map(([name, data]) => ({
+    name,
+    revenue: data.revenue,
+    refund: data.refund,
+    profit: data.profit,
+  }));
+
+  const profitDistributionData = Object.entries(showData).map(
+    ([name, data]) => ({
+      name,
+      value: data.profit, // Thay vì tính phần trăm, ta sẽ dùng giá trị profit trực tiếp
+    })
+  );
+  const filteredProfitData =
+    selectedShow === "all"
+      ? profitDistributionData
+      : [
+          {
+            name: selectedShow,
+            value: showData[selectedShow].profit,
+          },
+        ];
+  function getTotalValue(key) {
+    if (selectedShow === "all") {
+      return Object.values(showData).reduce((sum, data) => sum + data[key], 0);
+    }
+    return showData[selectedShow][key];
+  }
+
+  function getTotalProfit() {
+    return Object.values(showData).reduce((sum, data) => sum + data.profit, 0);
+  }
 
   const COLORS = [
     "#0088FE",
@@ -72,65 +119,108 @@ const Overview = () => {
     "#FF6699",
   ];
 
+  const StatCard = ({ title, value, icon, color }) => (
+    <Card className="hover:shadow-xl transition-shadow duration-300">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-600 mb-1 text-sm">{title}</p>
+          <p className="text-2xl font-bold" style={{ color: color }}>
+            {value}
+          </p>
+        </div>
+        <div
+          className="p-3 rounded-full"
+          style={{
+            backgroundColor: `${color}15`,
+            color: color,
+          }}
+        >
+          {icon}
+        </div>
+      </div>
+    </Card>
+  );
+
+  const filteredRevenueData =
+    selectedShow === "all"
+      ? revenueData
+      : [revenueData.find((item) => item.name === selectedShow)];
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-     
+    <div>
+      {/* Filter Section */}
+      <div className="mb-6">
+        <Select
+          style={{ width: 300 }}
+          placeholder="Select a show"
+          onChange={(value) => setSelectedShow(value)}
+          defaultValue="all"
+        >
+          <Option value="all">All Shows</Option>
+          {Object.keys(showData).map((show) => (
+            <Option key={show} value={show}>
+              {show}
+            </Option>
+          ))}
+        </Select>
+      </div>
 
       {/* General Information Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card
-          className="shadow-lg"
-          bodyStyle={{ textAlign: "center", padding: "20px" }}
-        >
-          <h3 className="text-lg font-semibold text-gray-700">
-            Total Competitions
-          </h3>
-          <p className="text-3xl font-bold text-blue-500">10</p>
-        </Card>
-        <Card
-          className="shadow-lg"
-          bodyStyle={{ textAlign: "center", padding: "20px" }}
-        >
-          <h3 className="text-lg font-semibold text-gray-700">Total Users</h3>
-          <p className="text-3xl font-bold text-green-500">43</p>
-        </Card>
-        <Card
-          className="shadow-lg"
-          bodyStyle={{ textAlign: "center", padding: "20px" }}
-        >
-          <h3 className="text-lg font-semibold text-gray-700">
-            Total Koi Fish
-          </h3>
-          <p className="text-3xl font-bold text-pink-500">191</p>
-        </Card>
-      </div>
+      <Row gutter={[24, 24]} className="mb-6">
+        <Col xs={24} sm={12} lg={8}>
+          <StatCard
+            title="Total Competitions"
+            value={getTotalValue("competitions")}
+            icon={<TrophyOutlined style={{ fontSize: "24px" }} />}
+            color="#1890ff"
+          />
+        </Col>
+        <Col xs={24} sm={12} lg={8}>
+          <StatCard
+            title="Total Users"
+            value={getTotalValue("users")}
+            icon={<UserOutlined style={{ fontSize: "24px" }} />}
+            color="#52c41a"
+          />
+        </Col>
+        <Col xs={24} sm={12} lg={8}>
+          <StatCard
+            title="Total Koi Fish"
+            value={getTotalValue("koiFish")}
+            icon={<GoldOutlined style={{ fontSize: "24px" }} />}
+            color="#722ed1"
+          />
+        </Col>
+      </Row>
 
       {/* Revenue Information Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card
-          className="shadow-lg"
-          bodyStyle={{ textAlign: "center", padding: "20px" }}
-        >
-          <h3 className="text-lg font-semibold text-gray-700">Total Revenue</h3>
-          <p className="text-3xl font-bold text-teal-500">17,800,000.00 đ</p>
-        </Card>
-        <Card
-          className="shadow-lg"
-          bodyStyle={{ textAlign: "center", padding: "20px" }}
-        >
-          <h3 className="text-lg font-semibold text-gray-700">Refunds</h3>
-          <p className="text-3xl font-bold text-red-500">1,390,000.00 đ</p>
-        </Card>
-        <Card
-          className="shadow-lg"
-          bodyStyle={{ textAlign: "center", padding: "20px" }}
-        >
-          <h3 className="text-lg font-semibold text-gray-700">Net Profit</h3>
-          <p className="text-3xl font-bold text-green-500">16,410,000.00 đ</p>
-        </Card>
-      </div>
+      <Row gutter={[24, 24]} className="mb-6">
+        <Col xs={24} sm={12} lg={8}>
+          <StatCard
+            title="Total Revenue"
+            value={`${getTotalValue("revenue").toLocaleString()} đ`}
+            icon={<DollarOutlined style={{ fontSize: "24px" }} />}
+            color="#13c2c2"
+          />
+        </Col>
+        <Col xs={24} sm={12} lg={8}>
+          <StatCard
+            title="Refunds"
+            value={`${getTotalValue("refund").toLocaleString()} đ`}
+            icon={<RollbackOutlined style={{ fontSize: "24px" }} />}
+            color="#f5222d"
+          />
+        </Col>
+        <Col xs={24} sm={12} lg={8}>
+          <StatCard
+            title="Net Profit"
+            value={`${getTotalValue("profit").toLocaleString()} đ`}
+            icon={<LineChartOutlined style={{ fontSize: "24px" }} />}
+            color="#faad14"
+          />
+        </Col>
+      </Row>
 
-      {/* Charts Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Revenue Chart */}
         <Card className="shadow-lg" bodyStyle={{ padding: "20px" }}>
@@ -139,7 +229,7 @@ const Overview = () => {
           </h3>
           <div style={{ height: "300px" }}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={revenueData}>
+              <BarChart data={filteredRevenueData}>
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
@@ -161,20 +251,23 @@ const Overview = () => {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={profitDistributionData}
+                  data={filteredProfitData}
                   dataKey="value"
                   nameKey="name"
                   outerRadius={100}
                   fill="#8884d8"
-                  label
+                  label={({ name, percent }) =>
+                    `(${(percent * 100).toFixed(1)}%)`
+                  }
                 >
-                  {profitDistributionData.map((entry, index) => (
+                  {filteredProfitData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
                     />
                   ))}
                 </Pie>
+                <Tooltip />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>

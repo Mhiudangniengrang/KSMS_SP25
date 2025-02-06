@@ -47,7 +47,7 @@ function StepThree() {
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg">
+    <div className=" bg-white rounded-lg">
       <h2 className="text-2xl font-semibold mb-6">Step 3: Rules & Regulations</h2>
 
       {/* Input field to add new rule */}
