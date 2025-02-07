@@ -5,11 +5,11 @@ import Authentication from "../pages/AdminPage/Authentication";
 import AdminDashboard from "../layout/admin";
 import ManagerDashboard from "../layout/manager";
 import RefereeDashboard from "../layout/referee";
-import Category from "../section/admin/koishow/KoiShowAdmin/Category";
 
 export const KoiShowPageAdmin = lazy(() =>
   import("../pages/AdminPage/KoiShowPage")
 );
+export const MyShowPage = lazy(() => import("../pages/AdminPage/MyShowPage"));
 export const KoiShowDetailAdmin = lazy(() =>
   import("../pages/AdminPage/KoiShowDetailPage")
 );
@@ -33,7 +33,7 @@ export const TeamPage = lazy(() => import("../pages/AdminPage/TeamPage"));
 export const OverviewAdmin = lazy(() =>
   import("../pages/AdminPage/OverviewPage")
 );
-
+export const NewsPage = lazy(() => import("../pages/AdminPage/NewsPage"));
 const ProtectedRoute = ({ children, allowedRole, userRole }) => {
   if (userRole !== allowedRole) {
     return <Navigate to="/" replace />;
@@ -62,10 +62,12 @@ export const Router = () => {
       path: "/admin",
       children: [
         { element: <OverviewAdmin />, path: "overview" },
-        { element: <KoiShowPageAdmin />, path: "koiShow" },
+        { element: <KoiShowPageAdmin />, path: "showList" },
+        { element: <MyShowPage />, path: "myShow" },
         { element: <CreateShow />, path: "create-Show" },
         { element: <UserPage />, path: "users" },
         { element: <TeamPage />, path: "teams" },
+        { element: <NewsPage />, path: "news" },
         { element: <KoiShowDetailAdmin />, path: "koiShow/detail/:id" },
         // { element: <Category />, path: "koiShow/detail/:id" },
         { element: <Navigate to="/admin/koiShow" replace />, index: true },

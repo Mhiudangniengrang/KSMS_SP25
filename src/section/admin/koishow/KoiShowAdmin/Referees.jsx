@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table, Button, Modal, Form, Input } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 function Referees() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -75,7 +75,7 @@ function Referees() {
     <div>
       <div className="mb-4 flex justify-end">
         <div className="absolute top-[-50px] right-0">
-          <Button type="primary" onClick={showModal}>
+          <Button type="primary" onClick={showModal} icon={<PlusOutlined />}>
             Add New
           </Button>
         </div>

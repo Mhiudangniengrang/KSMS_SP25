@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table, Button, Modal, Form, Input, Checkbox } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 function Manager() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -97,7 +97,7 @@ function Manager() {
     <div>
       <div className="mb-4 flex justify-end">
         <div className="absolute top-[-50px] right-0">
-          <Button type="primary" onClick={showModal}>
+          <Button type="primary" onClick={showModal} icon={<PlusOutlined />}>
             Add New
           </Button>
         </div>
@@ -114,8 +114,8 @@ function Manager() {
           <Button
             key="submit"
             type="primary"
-            onClick={handleClick} // Sử dụng handleClick khi nhấn nút
-            disabled={selectedManagers.length === 0} // Disable button nếu không có gì được chọn
+            onClick={handleClick}
+            disabled={selectedManagers.length === 0}
           >
             Add Selected Managers
           </Button>,

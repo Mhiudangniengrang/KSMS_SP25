@@ -166,18 +166,7 @@ function Category() {
             allowClear
           />
         </div>
-        <div>
-          <Select
-            placeholder="Filter by variety"
-            allowClear
-            className="w-full md:w-64"
-            onChange={handleFilterVariety}
-          >
-            <Option value="Kohaku">Kohaku</Option>
-            <Option value="Showa">Showa</Option>
-            <Option value="Sanke">Sanke</Option>
-          </Select>
-        </div>
+
         <Button
           type="primary"
           icon={<PlusOutlined />}

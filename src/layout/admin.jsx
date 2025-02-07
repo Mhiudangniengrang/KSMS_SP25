@@ -9,6 +9,7 @@ import {
   BookOutlined,
   FileSearchOutlined,
   UserAddOutlined,
+  ReadOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 
@@ -26,12 +27,10 @@ function getItem(label, key, icon, children, path) {
 }
 const items = [
   getItem("Overview", "1", <HomeOutlined />, null, "/admin/overview"),
-  getItem("Koi Show", "sub1", <CalendarOutlined />, null, "/admin/koiShow"),
-  //      [
-  //     getItem("Show List", "2", null, null, "/show/list"),
-  //     getItem("Create Show", "3", null, null, "/show/create"),
-  //     getItem("Show History", "4", null, null, "/show/history"),
-  //   ]),
+  getItem("Koi Show", "sub1", <CalendarOutlined />, [
+    getItem("Show List", "2", null, null, "/admin/showList"),
+    getItem("My Show", "3", null, null, "/admin/myShow"),
+  ]),
   getItem("Users", "sub2", <UserAddOutlined />, null, "/admin/users"),
   //   [
   //     getItem("User List", "5", null, null, "/users/list"),
@@ -49,6 +48,7 @@ const items = [
   //     // getItem("Members", "8", null, null, "/members"),
   //     // getItem("Assignments", "9", null, null, "/assignments"),
   //   ]),
+  getItem("News", "sub4", <ReadOutlined />, null, "/admin/news"),
 ];
 
 console.log(items);

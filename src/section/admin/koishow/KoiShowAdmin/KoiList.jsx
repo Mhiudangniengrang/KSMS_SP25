@@ -116,13 +116,13 @@ function KoiList({ categoryId }) {
   };
 
   const handleVideoClick = (url) => {
-    setVideoUrl(url); // Set the video URL when clicked
-    setIsModalVisible(true); // Show the modal
+    setVideoUrl(url);
+    setIsModalVisible(true);
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false); // Close the modal
-    setVideoUrl(""); // Reset the video URL when the modal is closed
+    setIsModalVisible(false);
+    setVideoUrl("");
   };
 
   const columns = [
@@ -268,26 +268,12 @@ function KoiList({ categoryId }) {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-        {/* Thanh tìm kiếm */}
         <Search
           placeholder="Search Koi..."
           onSearch={(value) => setSearchText(value)}
           allowClear
           className="w-full md:w-1/3 mb-2 md:mb-0"
         />
-
-        {/* Bộ lọc theo hạng mục */}
-        <Select
-          placeholder="Filter by Category"
-          value={selectedCategory}
-          onChange={(value) => setSelectedCategory(value)}
-          allowClear
-          className="w-full md:w-1/3"
-        >
-          <Option value="1">Mini Kohaku</Option>
-          <Option value="2">Standard Showa</Option>
-          <Option value="3">Premium Taisho Sanke</Option>
-        </Select>
       </div>
 
       <Table

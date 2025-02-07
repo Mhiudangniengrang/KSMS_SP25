@@ -11,12 +11,11 @@ import Awards from "./Awards";
 import Rules from "./Rules";
 import Sponsor from "./Sponsor";
 import CompetitionRound from "./CompetitionRound";
-import News from "./News";
 import { useParams } from "react-router-dom";
 
 function KoiShowDetail() {
   const { Panel } = Collapse;
-  const { id } = useParams(); // Lấy ID từ URL
+  const { id } = useParams(); 
   console.log(id);
   const items = [
     {
@@ -58,11 +57,6 @@ function KoiShowDetail() {
       key: "sponsor",
       label: "Sponsor",
       children: <Sponsor />,
-    },
-    {
-      key: "news",
-      label: "News",
-      children: <News />,
     },
   ];
   return (

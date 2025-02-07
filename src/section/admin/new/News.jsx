@@ -3,7 +3,6 @@ import { Input, Button, Card, Tag } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 const News = () => {
-  // Sample news data
   const newsItem = {
     id: 1,
     title: "Koi Competition 2025 - An Event to Look Forward to",
@@ -14,11 +13,8 @@ const News = () => {
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      {/* Header */}
-      <h1 className="text-2xl font-bold mb-6">News</h1>
+    <div >
 
-      {/* Search and Create Section */}
       <div className="flex gap-4 mb-8">
         <Input
           placeholder="Search..."
@@ -36,7 +32,6 @@ const News = () => {
         </Button>
       </div>
 
-      {/* News Card */}
       <Card
         hoverable
         className="max-w-sm"

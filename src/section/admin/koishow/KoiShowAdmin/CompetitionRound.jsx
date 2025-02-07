@@ -57,7 +57,7 @@ const competitionData = [
 
 const categories = ["Mini Kohaku	", "Standard Showa	", "Premium Taisho Sanke	"];
 const mainRounds = ["Vòng Sơ Khảo", "Vòng Đánh Giá Chính", "Vòng Chung Kết"];
-const subRounds = ["Vòng 1", "Vòng 2"];
+const subRounds = ["Round 1", "Round 2"];
 
 function CompetitionRound() {
   const [category, setCategory] = useState(categories[0]);
