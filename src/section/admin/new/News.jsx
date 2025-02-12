@@ -8,13 +8,13 @@ const News = () => {
     title: "Koi Competition 2025 - An Event to Look Forward to",
     category: "Competition",
     date: "August 20, 2022",
-    image: "https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/471679313_1362648331729659_8044845932844624948_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=c_ItmUiIAuwQ7kNvgH0owgV&_nc_oc=AdiVhs2z_fkGVzfSGG4-Bq-uGjepIqTulpM94epk3uJRLkFSwQeJqj81B--p2GEASLk&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=A4wPYKyRpHD61TQXj1SMKvZ&oh=00_AYCj0rrFplvcPgZ7YpyA_KeaSKgkBS1-b1mjd9B4mNaIzg&oe=67A9F2F9",
+    image:
+      "https://static.wixstatic.com/media/0fa26a_f753a8e165714f6bb735e80883d0aad2~mv2.png/v1/fit/w_1000,h_1000,al_c,q_80/file.png",
     tag: "koi",
   };
 
   return (
-    <div >
-
+    <div>
       <div className="flex gap-4 mb-8">
         <Input
           placeholder="Search..."
@@ -44,11 +44,15 @@ const News = () => {
         }
       >
         <div className="flex items-center justify-between mb-2">
-          <Tag className="text-white bg-blue-500 border-0 rounded-full ">{newsItem.category}</Tag>
+          <Tag className="text-white bg-blue-500 border-0 rounded-full ">
+            {newsItem.category}
+          </Tag>
           <span className="text-gray-500 text-sm">{newsItem.date}</span>
         </div>
         <h2 className="text-xl font-semibold mb-3">{newsItem.title}</h2>
-        <div className="bg-gray-100 border-0 rounded-full w-1/5 text-center p-2">Edit</div>
+        <div className="bg-gray-100 border-0 rounded-full w-1/5 text-center p-2">
+          Edit
+        </div>
       </Card>
     </div>
   );
